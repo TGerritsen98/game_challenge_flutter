@@ -25,3 +25,16 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Visual Studio cache directory
+.vs/
+.vsconfig
+
+# Visual Studio Code cache directory
+.vscode/
+
+# Gradle cache directory
+.gradle/
+
+# Jetbrains cache directory
+.idea/
