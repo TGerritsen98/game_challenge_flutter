@@ -12,7 +12,6 @@ class PlayerMovement extends Component with KeyboardHandler {
 
   @override
   void update(double dt) {
-    super.update(dt);
     gameObject.position += velocity * speed * dt;
   }
 
