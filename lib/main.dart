@@ -4,5 +4,6 @@ import 'package:game_challenge_flutter/game.dart';
 
 void main() {
   final game = FlutterGame();
+
   runApp(GameWidget(game: game));
 }

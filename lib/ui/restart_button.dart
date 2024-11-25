@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/input.dart';
-import 'package:game_challenge_flutter/events/restart_game_event.dart';
+import 'package:game_challenge_flutter/game.dart';
 
-class RestartButton extends SpriteButtonComponent {
+class RestartButton extends SpriteButtonComponent with HasGameReference<FlutterGame> {
 
   @override
   FutureOr<void> onLoad() async {
@@ -17,6 +17,6 @@ class RestartButton extends SpriteButtonComponent {
   }
 
   void _pressed() {
-    RestartGameEvent.invoke();
+    game.state.restart();
   }
 }

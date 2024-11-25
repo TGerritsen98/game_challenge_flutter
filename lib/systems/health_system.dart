@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:game_challenge_flutter/events/game_over_event.dart';
 import 'package:game_challenge_flutter/events/life_event.dart';
+import 'package:game_challenge_flutter/game.dart';
 import 'package:game_challenge_flutter/game_object.dart';
 import 'package:game_challenge_flutter/ui/health_icon.dart';
 
-class HealthSystem extends GameObject {
+class HealthSystem extends GameObject with HasGameReference<FlutterGame> {
 
   static const double _cooldownSeconds = 5;
   late final Timer _cooldownTimer;
@@ -43,7 +43,8 @@ class HealthSystem extends GameObject {
     sprites.removeLast();
 
     if (sprites.isEmpty) {
-      GameOverEvent.invoke();
+      game.state.gameOver();
+      //GameOverEvent.invoke();
     } else {
       _damageable = false;
       _cooldownTimer.start();
