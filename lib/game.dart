@@ -37,7 +37,7 @@ class FlutterGame extends FlameGame with HasKeyboardHandlerComponents, TapCallba
     state = GameStateCubit();
     state.stream.listen(_onGameStateChange);
 
-    add(FlameBlocProvider<GameStateCubit, GameState>(
+    add(FlameBlocProvider<GameStateCubit, GameStatus>(
         create: () => state
     ));
 
@@ -60,8 +60,8 @@ class FlutterGame extends FlameGame with HasKeyboardHandlerComponents, TapCallba
     _scenes.clear();
   }
 
-  void _onGameStateChange(GameState state) {
-    switch (state.status) {
+  void _onGameStateChange(GameStatus status) {
+    switch (status) {
       case GameStatus.playing: _restartGame();
       case GameStatus.won: _showWinScene();
       case GameStatus.gameOver: _showGameOverScene();

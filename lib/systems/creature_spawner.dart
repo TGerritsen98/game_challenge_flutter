@@ -6,37 +6,53 @@ import 'package:game_challenge_flutter/characters/creatures/creature.dart';
 import 'package:game_challenge_flutter/characters/creatures/creature_data.dart';
 import 'package:game_challenge_flutter/game_object.dart';
 
+/// Class representing a spawner that automatically spawns in new [Creature]s
+/// from an internal pool.
 class CreatureSpawner extends GameObject {
 
-  List<CreatureData> templates = List.empty(growable: true);
-  List<Creature> creatures = List.empty(growable: true);
-  int pool;
-  double period;
+  static final _random = Random();
 
-  CreatureSpawner(this.pool, this.period);
+  /// A list with possible creatures to spawn when needed.
+  final List<CreatureData> _templates = List.empty(growable: true);
 
+  /// A list of known creatures within the pool.
+  final List<Creature> _pool = List.empty(growable: true);
+
+  /// The amount of creatures to spawn in the pool.
+  final int _amount;
+  final double _period;
+
+  CreatureSpawner(this._amount, this._period);
+
+  /// Method called to start the spawner. This method will pre-spawn all the
+  /// creatures, and start a clock to, one by one, initialize each creature.
   @override
   FutureOr<void> onLoad() {
     add(TimerComponent(
-        period: period,
+        period: _period,
         repeat: true,
         onTick: () { _spawn(); }
     ));
 
-    for (var i = 0; i < pool; i++) {
+    for (var i = 0; i < _amount; i++) {
       final creature = addGameObject(Creature());
-      creatures.add(creature);
+      _pool.add(creature);
     }
   }
 
-  void addTemplate(CreatureData data) {
-    templates.add(data);
+  /// Method to add a new template of a [Creature] to the spawner to randomly
+  /// pick from.
+  CreatureSpawner addTemplate(CreatureData data) {
+    _templates.add(data);
+
+    return this;
   }
 
+  /// Method called to initialize a [Creature] with new [CreatureData]. When
+  /// there are no more creatures to initialize, this method will stop.
   void _spawn() {
-    final random = Random();
-    final sheet = templates[random.nextInt(templates.length)];
-    final creature = creatures.firstWhere((c) => !c.active, orElse: () {
+    final sheet = _templates[_random.nextInt(_templates.length)];
+    final creature = _pool.firstWhere((c) => !c.active, orElse: () {
       final c = Creature();
       c.active = true;
       return c;

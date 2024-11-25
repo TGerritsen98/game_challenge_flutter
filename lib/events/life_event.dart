@@ -1,3 +1,6 @@
+/// Class representing an static known event bus to subscribe and invoke to.
+///
+/// This eventbus is used to update the health between the player and the UI.
 class LifeEvent {
 
   static List<Function> events = List.empty(growable: true);

@@ -10,21 +10,24 @@ import 'package:game_challenge_flutter/characters/player/player_movement.dart';
 import 'package:game_challenge_flutter/game_object.dart';
 import 'package:game_challenge_flutter/globals.dart';
 
+/// Class representing the player within the game.
 class Player extends GameObject {
 
-  static const String imageFile = 'Dawn.png';
+  /// The image of the player.
+  static const String _imageFile = 'Player.png';
 
-  Player(Vector2 position) {
-    priority = 2;
-    this.position = position;
-    anchor = Anchor.center;
-    tag = "Player";
-  }
+  Player({super.position}) : super(
+      tag: "Player",
+      priority: 2,
+      anchor: Anchor.center
+  );
 
+  /// Method to load in the sprite sheet, create a shadow under the player, and
+  /// start the [PlayerAnimator] and [PlayerMovement]
   @override
   FutureOr<void> onLoad() async {
     final spriteSheet = SpriteSheet(
-      image: await Flame.images.load(imageFile),
+      image: await Flame.images.load(_imageFile),
       srcSize: Globals.spriteSize,
     );
 

@@ -6,18 +6,23 @@ import 'package:flame/flame.dart';
 
 class HealthIcon extends SpriteComponent {
 
-  HealthIcon(Vector2 position) {
-    super.position = position;
-    anchor = Anchor.center;
-    scale = Vector2.all(5);
-    priority = 10;
-  }
+  /// The image of this icon.
+  final String _image;
 
+  HealthIcon(this._image, {super.position, super.anchor, super.scale, super.priority});
+
+  /// Method called on initialization.
+  ///
+  /// This method will load in the sprite to show as the icon.
   @override
   FutureOr<void> onLoad() async {
-    sprite = Sprite(await Flame.images.load('Heart.png'));
+    sprite = Sprite(await Flame.images.load(_image));
   }
 
+  /// Method to damage the health icon.
+  ///
+  /// This method will scale the health icon to 0 before removing it completely
+  /// from the game.
   void damage() async {
     add(ScaleEffect.to(
       Vector2.all(0),

@@ -3,15 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:game_challenge_flutter/characters/character_animator.dart';
 import 'package:game_challenge_flutter/characters/movement_state.dart';
 
+/// Class representing an animator implementation for a player using the general
+/// [CharacterAnimator].
 class PlayerAnimator extends Component with KeyboardHandler {
 
-  static const double stepTime = 0.25;
+  /// The character animator to be implemented for the player.
   final CharacterAnimator animator;
 
   PlayerAnimator(this.animator) {
     animator.current = MovementState.idleBottom;
   }
 
+  /// Method called when a keyboard button is pressed. This method will change
+  /// the animation of the player to the correct orientation and movement.
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (event is KeyDownEvent) {

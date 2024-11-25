@@ -1,19 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_challenge_flutter/game_status.dart';
 
-import 'game_status.dart';
+/// Class representing the entry point for game state transitions.
+class GameStateCubit extends Cubit<GameStatus> {
 
-class GameState {
+  GameStateCubit() : super(GameStatus.playing);
 
-  final GameStatus status;
+  /// Method to transition to the 'Win' game state.
+  void win() => emit(GameStatus.won);
 
-  const GameState(this.status);
-}
+  /// Method to transition to the 'Game Over' game state.
+  void gameOver() => emit(GameStatus.gameOver);
 
-class GameStateCubit extends Cubit<GameState> {
-
-  GameStateCubit() : super(const GameState(GameStatus.playing));
-
-  void win() => emit(const GameState(GameStatus.won));
-  void gameOver() => emit(const GameState(GameStatus.gameOver));
-  void restart() => emit(const GameState(GameStatus.playing));
+  /// Method to transition back to the 'Playing' game state.
+  void restart() => emit(GameStatus.playing);
 }
