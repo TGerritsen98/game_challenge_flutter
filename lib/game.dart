@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:game_challenge_flutter/scenes/ui_scene.dart';
 import 'package:game_challenge_flutter/scenes/world_scene.dart';
 
 class FlutterGame extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks {
@@ -15,6 +16,7 @@ class FlutterGame extends FlameGame with HasKeyboardHandlerComponents, TapCallba
     FlameAudio.bgm.initialize();
 
     world.add(WorldScene());
+    world.add(UIScene());
   }
 
   @override

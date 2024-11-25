@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:game_challenge_flutter/characters/character_animator.dart';
 import 'package:game_challenge_flutter/characters/creatures/creature_data.dart';
 import 'package:game_challenge_flutter/characters/movement_state.dart';
+import 'package:game_challenge_flutter/events/life_event.dart';
 import 'package:game_challenge_flutter/game.dart';
 import 'package:game_challenge_flutter/game_object.dart';
 
@@ -86,6 +87,7 @@ class Creature extends GameObject with HasGameReference<FlutterGame> {
 
     if ((currentPosition + movement).distanceTo(targetPosition) < movement.length) {
       position = targetPosition;
+      LifeEvent.invoke();
     } else {
       position += movement;
     }
